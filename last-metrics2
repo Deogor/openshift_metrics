@@ -1,0 +1,86 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: '2022-03-14T00:53:06Z'
+  generation: 2
+  labels:
+    app: last-metrics2
+  name: last-metrics2
+  namespace: metrics
+  resourceVersion: '2808'
+  selfLink: >-
+    /apis/apps.openshift.io/v1/namespaces/metrics/deploymentconfigs/last-metrics2
+  uid: 1c8501b2-a331-11ec-87cb-842afd0ab432
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    app: last-metrics2
+    deploymentconfig: last-metrics2
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+      creationTimestamp: null
+      labels:
+        app: last-metrics2
+        deploymentconfig: last-metrics2
+    spec:
+      containers:
+        - image: 'localhost:5000/last-metrics2:latest'
+          imagePullPolicy: Always
+          name: last-metrics2
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /data
+              name: volume-0i5ld
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: volume-0i5ld
+          persistentVolumeClaim:
+            claimName: test
+  test: false
+  triggers:
+    - type: ConfigChange
+status:
+  availableReplicas: 1
+  conditions:
+    - lastTransitionTime: '2022-03-14T00:53:43Z'
+      lastUpdateTime: '2022-03-14T00:53:43Z'
+      message: Deployment config has minimum availability.
+      status: 'True'
+      type: Available
+    - lastTransitionTime: '2022-03-14T00:53:41Z'
+      lastUpdateTime: '2022-03-14T00:53:44Z'
+      message: replication controller "last-metrics2-2" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: 'True'
+      type: Progressing
+  details:
+    causes:
+      - type: ConfigChange
+    message: config change
+  latestVersion: 2
+  observedGeneration: 2
+  readyReplicas: 1
+  replicas: 1
+  unavailableReplicas: 0
+  updatedReplicas: 1
