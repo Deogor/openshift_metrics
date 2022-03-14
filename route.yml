@@ -1,0 +1,22 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  creationTimestamp: '2022-03-14T09:11:58Z'
+  labels:
+    app: nginx-unprivileged
+  name: metrics-new
+  namespace: metrics
+  resourceVersion: '28789'
+  selfLink: /apis/route.openshift.io/v1/namespaces/metrics/routes/metrics-new
+  uid: cd6cf245-a376-11ec-87cb-842afd0ab432
+spec:
+  host: www.surovvasiliy.ru
+  port:
+    targetPort: 8080-tcp
+  to:
+    kind: Service
+    name: nginx-unprivileged
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress: null
