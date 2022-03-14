@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: '2022-03-14T00:54:49Z'
+  labels:
+    app: nginx-unprivileged
+  name: nginx-unprivileged
+  namespace: metrics
+  resourceVersion: '20345'
+  selfLink: /api/v1/namespaces/metrics/services/nginx-unprivileged
+  uid: 59a2068e-a331-11ec-88e8-842afd0ab432
+spec:
+  clusterIP: 172.30.10.135
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: nginx-unprivileged
+    deploymentconfig: nginx-unprivileged
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
