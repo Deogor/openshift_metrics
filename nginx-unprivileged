@@ -1,0 +1,89 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: '2022-03-14T00:54:49Z'
+  generation: 5
+  labels:
+    app: nginx-unprivileged
+  name: nginx-unprivileged
+  namespace: metrics
+  resourceVersion: '8147'
+  selfLink: >-
+    /apis/apps.openshift.io/v1/namespaces/metrics/deploymentconfigs/nginx-unprivileged
+  uid: 59a121cb-a331-11ec-87cb-842afd0ab432
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    app: nginx-unprivileged
+    deploymentconfig: nginx-unprivileged
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+      creationTimestamp: null
+      labels:
+        app: nginx-unprivileged
+        deploymentconfig: nginx-unprivileged
+    spec:
+      containers:
+        - image: 'localhost:5000/nginxinc/nginx-unprivileged:latest'
+          imagePullPolicy: Always
+          name: nginx-unprivileged
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html/
+              name: volume-dquzt
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: volume-dquzt
+          persistentVolumeClaim:
+            claimName: test
+  test: false
+  triggers:
+    - type: ConfigChange
+status:
+  availableReplicas: 1
+  conditions:
+    - lastTransitionTime: '2022-03-14T00:54:51Z'
+      lastUpdateTime: '2022-03-14T00:54:51Z'
+      message: Deployment config has minimum availability.
+      status: 'True'
+      type: Available
+    - lastTransitionTime: '2022-03-14T01:14:35Z'
+      lastUpdateTime: '2022-03-14T01:14:38Z'
+      message: replication controller "nginx-unprivileged-5" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: 'True'
+      type: Progressing
+  details:
+    causes:
+      - type: ConfigChange
+    message: config change
+  latestVersion: 5
+  observedGeneration: 5
+  readyReplicas: 1
+  replicas: 1
+  unavailableReplicas: 0
+  updatedReplicas: 1
